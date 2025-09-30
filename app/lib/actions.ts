@@ -1,4 +1,5 @@
 'use server';
+
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
@@ -33,9 +34,7 @@ export async function createInvoice(formData: FormData) {
     `;
   } catch (error) {
     console.error(error);
-    return {
-      message: 'Database Error: Failed to Create Invoice.',
-    };
+    throw new Error('Database Error: Failed to Create Invoice.');
   }
 
   revalidatePath('/dashboard/invoices');
